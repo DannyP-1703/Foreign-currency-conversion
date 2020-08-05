@@ -1,31 +1,38 @@
 package com.example.foreigncurrencyconversion
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-//import java.math.BigDecimal
-//import java.math.RoundingMode
+import java.io.File
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
-    private val exchangeRates = mapOf(     //relative to RUB
-        "RUB" to 1.0,
-        "USD" to 69.1219,
-        "EUR" to 78.5225,
-        "GBP" to 87.6673,
-        "UAH" to 25.9902
-    )
 
-    private fun convert(v: View) {
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        if (parent != null) {
+            when (parent.id) {
+                spFrom.id -> DataManager.selection = DataManager.selection.copy(first = position)
+                spTo.id -> DataManager.selection = DataManager.selection.copy(second = position)
+            }
+        }
+    }
+
+    private fun convert() {
         val textFrom = etFrom.text.toString()
         if (textFrom != "") {
-            val textTo = textFrom.toFloat() * exchangeRates[spFrom.selectedItem]!! / exchangeRates[spTo.selectedItem]!!
-//                var formatter = BigDecimal(textTo)
-//                formatter = formatter.setScale(2, RoundingMode.HALF_UP)
-//                etTo.setText(formatter.toString())
-            etTo.setText(String.format(Locale.getDefault(),"%.2f", textTo))
+            val from = spFrom.selectedItem.toString().substring(0, 3)
+            val to = spTo.selectedItem.toString().substring(0, 3)
+            val textTo =
+                textFrom.toFloat() * DataManager.exchangeRates[to]!! / DataManager.exchangeRates[from]!!
+            etTo.setText(String.format(Locale.getDefault(), "%.2f", textTo))
         } else {
             etTo.setText("")
         }
@@ -35,15 +42,49 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        spFrom.setSelection(1)
-        spTo.setSelection(0)
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.currencies,
+            android.R.layout.simple_spinner_item
+        ).also {
+            it.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+            spFrom.adapter = it
+            spTo.adapter = it
+        }
 
-        btnConvert.setOnClickListener(this::convert)
+        val dataFile = File(filesDir, "data.txt")
+        DataManager.setup(this, dataFile)
+
+
+        //          LISTENERS
+
+        btnUpdate.setOnClickListener { DataManager.update() }
+
+        btnConvert.setOnClickListener { convert() }
+
+        etFrom.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                convert()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
         btnSwapCur.setOnClickListener {
-            val t = spFrom.selectedItemPosition
-            spFrom.setSelection(spTo.selectedItemPosition).also { spTo.setSelection(t) }
-            convert(it)
+            DataManager.selection = Pair(DataManager.selection.second, DataManager.selection.first)
+            spFrom.setSelection(DataManager.selection.first)
+            spTo.setSelection(DataManager.selection.second)
+            convert()
         }
+
+        spFrom.onItemSelectedListener = this
+        spTo.onItemSelectedListener = this
+    }
+
+    override fun onStop() {
+        super.onStop()
+        DataManager.saveData()
+        Log.d("MyLog", "App is closed")
     }
 }

@@ -4,93 +4,145 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
-
-
-<!-- TODO: настоить констрейнты   -->
 
 
     <Button
         android:id="@+id/btnConvert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginRight="68dp"
-        android:layout_marginBottom="19dp"
-        android:text="@string/conv"
-        app:layout_constraintBottom_toTopOf="@+id/etTo"
-        app:layout_constraintEnd_toEndOf="@+id/etTo"
-        app:layout_constraintStart_toEndOf="@+id/spTo" />
+        android:layout_width="135dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_buttons"
+        android:drawableEnd="@drawable/icon_convert"
+        android:gravity="start|center_vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:text="@string/convert"
+        android:textAppearance="@style/convert"
+        app:layout_constraintEnd_toEndOf="@+id/etFrom"
+        app:layout_constraintStart_toStartOf="@+id/etFrom"
+        app:layout_constraintTop_toBottomOf="@+id/etFrom" />
 
-    <EditText
-        android:id="@+id/etTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="327dp"
-        android:layout_marginEnd="43dp"
-        android:layout_marginRight="43dp"
-        android:clickable="false"
-        android:cursorVisible="false"
-        android:editable="false"
-        android:ems="10"
-        android:hint="@string/val_to"
-        android:inputType="numberDecimal"
-        android:longClickable="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spTo"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/btnSwapCur"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_buttons"
+        android:contentDescription="@string/swap_description"
+        android:src="@drawable/icon_swap"
+        app:layout_constraintEnd_toEndOf="@+id/spFrom"
+        app:layout_constraintStart_toStartOf="@+id/spFrom"
+        app:layout_constraintTop_toBottomOf="@+id/spFrom" />
 
     <EditText
         android:id="@+id/etFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="43dp"
-        android:layout_marginRight="43dp"
-        android:layout_marginBottom="36dp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:autofillHints=""
+        android:background="@drawable/bg_text"
         android:ems="10"
+        android:fontFamily="@font/oxygen"
         android:hint="@string/val_from"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/btnConvert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spFrom" />
+        android:maxLines="1"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorHint"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/spFrom"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <EditText
+        android:id="@+id/etTo"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:autofillHints=""
+        android:background="@drawable/bg_text"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:fontFamily="@font/oxygen"
+        android:hint="@string/val_to"
+        android:inputType="none"
+        android:longClickable="false"
+        android:maxLines="1"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorHint"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/spTo"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/etFrom"
+        app:layout_constraintTop_toBottomOf="@+id/btnConvert" />
+
 
     <Spinner
         android:id="@+id/spFrom"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginLeft="39dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/bg_spinner"
         android:entries="@array/currencies"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etFrom"
-        app:layout_constraintEnd_toStartOf="@+id/etFrom"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/etFrom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etFrom" />
 
     <Spinner
         android:id="@+id/spTo"
-        android:layout_width="0dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginLeft="39dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/bg_spinner"
         android:entries="@array/currencies"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etTo"
-        app:layout_constraintEnd_toStartOf="@+id/etTo"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/etTo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etTo"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/btnSwapCur"
+    <TextView
+        android:id="@+id/tvLastUpdated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="20dp"
-        android:text="Swap"
-        app:layout_constraintBottom_toTopOf="@+id/spTo"
-        app:layout_constraintEnd_toEndOf="@+id/spTo" />
+        android:layout_marginBottom="16dp"
+        android:text="@string/upd"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/etTo" />
+
+    <!--    TODO add icons-->
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="81dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="16dp"
+        android:text="UPD"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvLastUpdated" />
+
+    <ProgressBar
+        android:id="@+id/progressBarUpd"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvLastUpdated" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,17 @@
 <resources>
-    <string name="app_name">Foreign currency conversion</string>
+    <string name="app_name">Currency converter</string>
     <string name="val_from">From</string>
     <string name="val_to">To</string>
-    <string name="conv">Convert</string>
+    <string name="convert">CONVERT</string>
+    <string name="swap_description">Swap currencies</string>
+    <string name="upd">Last updated at %1$s</string>
     <string-array name="currencies">
-        <item>RUB</item>
-        <item>USD</item>
-        <item>EUR</item>
-        <item>GBP</item>
-        <item>UAH</item>
+        <item>RUB 🇷🇺</item>
+        <item>USD 🇺🇸</item>
+        <item>EUR 🇪🇺</item>
+        <item>MXN 🇲🇽</item>
+        <item>HUF 🇭🇺</item>
+        <item>CZK 🇨🇿</item>
+        <item>GBP 🇬🇧</item>
     </string-array>
 </resources>
