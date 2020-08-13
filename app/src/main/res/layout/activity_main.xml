@@ -52,6 +52,7 @@
         android:paddingEnd="15dp"
         android:textColor="@color/colorText"
         android:textColorHint="@color/colorHint"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/spFrom"
@@ -121,27 +122,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/etTo" />
 
-    <!--    TODO add icons-->
-
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="81dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="16dp"
-        android:text="UPD"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvLastUpdated" />
-
     <ProgressBar
         android:id="@+id/progressBarUpd"
         style="?android:attr/progressBarStyle"
+        android:layout_width="17dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvLastUpdated" />
+
+    <ImageButton
+        android:id="@+id/btnUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
-        android:visibility="invisible"
+        android:background="@drawable/icon_update"
+        android:contentDescription="@string/update_exchange_rates"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvLastUpdated" />
 

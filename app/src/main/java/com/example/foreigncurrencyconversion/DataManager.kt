@@ -25,8 +25,8 @@ object DataManager {
     private lateinit var tvLastUpdated: TextView
     private lateinit var spFrom: Spinner
     private lateinit var spTo: Spinner
-    private lateinit var btnUpd: Button
-    private lateinit var progBarUpd: ProgressBar
+    private lateinit var btnUpd: ImageButton
+    private lateinit var progressBarUpdate: ProgressBar
 
 
     fun setup(context: Context, dataFile: File) {
@@ -38,7 +38,7 @@ object DataManager {
             spFrom = context.spFrom
             spTo = context.spTo
             btnUpd = context.btnUpdate
-            progBarUpd = context.progressBarUpd
+            progressBarUpdate = context.progressBarUpd
 
             //  Getting data from internal storage
             val ois = ObjectInputStream(FileInputStream(this.dataFile))
@@ -78,13 +78,13 @@ object DataManager {
                         Toast.LENGTH_LONG
                     )
                         .show()
-                    Log.e(TAG, "update() function. Request failed")
+                    Log.e(TAG, "Request failed")
                 }
             } catch (e: NullPointerException) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "The rates are already latest", Toast.LENGTH_SHORT)
                         .show()
-                    Log.d(TAG, "update() function. NPE - data is latest")
+                    Log.d(TAG, "Data is latest")
                 }
             } finally {
                 withContext(Dispatchers.Main) {
@@ -119,10 +119,9 @@ object DataManager {
         if (currency == null) return null
         val date: String =
             currency.substring(currency.indexOf("date") + 7, currency.indexOf("date") + 17)
-        if (this.date == date) {
-            Log.d(TAG, "The data is latest")
-            return null
-        }
+
+        if (this.date == date) return null
+
         val exchangeRatesString: String = currency.substring(
             currency.indexOf("{", 2) + 1,
             currency.indexOf("}")
@@ -132,18 +131,17 @@ object DataManager {
             left.replace("\"", "") to right.toFloat()
         }
         map["EUR"] = 1.0F
-        Log.d(TAG, "The data is parsed")
         return Pair(date, map)
     }
 
     private fun startProgress() {
         btnUpd.visibility = Button.INVISIBLE
-        progBarUpd.visibility = ProgressBar.VISIBLE
+        progressBarUpdate.visibility = ProgressBar.VISIBLE
     }
 
     private fun stopProgress() {
         btnUpd.visibility = Button.VISIBLE
-        progBarUpd.visibility = ProgressBar.INVISIBLE
+        progressBarUpdate.visibility = ProgressBar.INVISIBLE
     }
 
     fun saveData() {

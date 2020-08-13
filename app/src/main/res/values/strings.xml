@@ -5,6 +5,7 @@
     <string name="convert">CONVERT</string>
     <string name="swap_description">Swap currencies</string>
     <string name="upd">Last updated at %1$s</string>
+    <string name="update_exchange_rates">Update exchange rates</string>
     <string-array name="currencies">
         <item>RUB 🇷🇺</item>
         <item>USD 🇺🇸</item>
